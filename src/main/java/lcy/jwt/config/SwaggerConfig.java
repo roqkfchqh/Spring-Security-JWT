@@ -6,11 +6,8 @@ import io.swagger.v3.oas.models.info.Contact;
 import io.swagger.v3.oas.models.info.Info;
 import io.swagger.v3.oas.models.security.SecurityRequirement;
 import io.swagger.v3.oas.models.security.SecurityScheme;
-import io.swagger.v3.oas.models.tags.Tag;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-
-import java.util.List;
 
 @Configuration
 public class SwaggerConfig {
@@ -34,10 +31,6 @@ public class SwaggerConfig {
 
         return new OpenAPI()
                 .info(info)
-                .tags(List.of(
-                        new Tag().name("Auth").description("인증·인가 관련 API"),
-                        new Tag().name("Admin").description("관리자 API")
-                ))
                 .components(new Components()
                         .addSecuritySchemes("bearer-key", securityScheme))
                 .addSecurityItem(securityRequirement);

@@ -1,17 +1,23 @@
 spring:
   profiles:
     active: local
-
 # local
 # release
+
+  config:
+    import: optional:file:.env[.properties]
 
 jwt:
   secret:
     key: ${JWT_KEY}
     whitelist:
-      - /white
+      - "/v3/api-docs/**"
+      - "/swagger-ui/**"
+      - "/swagger-resources/**"
+      - "/swagger-ui.html"
+      - "/api/auth/**"
     adminlist:
-      - /admin
+      - "/api/admin/**"
   token:
     prefix: "Bearer"
     expiration: 1800000

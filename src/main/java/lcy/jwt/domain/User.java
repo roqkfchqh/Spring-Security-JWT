@@ -9,4 +9,13 @@ public class User {
     String nickname;
     String password;
     UserRole role;
+
+    public static User of(String username, String nickname, String password, UserRole role) {
+        User user = new User();
+        user.username = username;
+        user.nickname = nickname;
+        user.password = password;
+        user.role = role;
+        return user;
+    }
 }
