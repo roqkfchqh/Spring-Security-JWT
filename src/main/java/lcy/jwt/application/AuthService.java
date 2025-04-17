@@ -3,6 +3,8 @@ package lcy.jwt.application;
 import lcy.jwt.domain.User;
 import lcy.jwt.domain.UserRepository;
 import lcy.jwt.domain.UserRole;
+import lcy.jwt.dto.RegisterUserRequest;
+import lcy.jwt.dto.RegisterUserResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;

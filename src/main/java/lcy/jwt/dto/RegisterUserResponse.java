@@ -1,4 +1,4 @@
-package lcy.jwt.application;
+package lcy.jwt.dto;
 
 import lcy.jwt.domain.UserRole;
 

@@ -1,4 +1,4 @@
-package lcy.jwt.application;
+package lcy.jwt.dto;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
