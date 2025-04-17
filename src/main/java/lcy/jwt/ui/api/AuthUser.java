@@ -1,0 +1,22 @@
+package lcy.jwt.ui.api;
+
+import lcy.jwt.domain.UserRole;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+
+import java.util.Collection;
+import java.util.List;
+
+public record AuthUser(
+        Long userId,
+        String email,
+        Collection<? extends GrantedAuthority> authorities
+) {
+    public static AuthUser of(Long userId, String email, UserRole role) {
+        return new AuthUser(
+                userId,
+                email,
+                List.of(new SimpleGrantedAuthority(role.getRoleName()))
+        );
+    }
+}
