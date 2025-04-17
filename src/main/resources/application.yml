@@ -1,0 +1,17 @@
+spring:
+  profiles:
+    active: local
+
+# local
+# release
+
+jwt:
+  secret:
+    key: ${JWT_KEY}
+    whitelist:
+      - /white
+    adminlist:
+      - /admin
+  token:
+    prefix: "Bearer"
+    expiration: 1800000
