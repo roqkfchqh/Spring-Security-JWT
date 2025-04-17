@@ -9,13 +9,11 @@ import java.util.List;
 
 public record AuthUser(
         Long userId,
-        String email,
         Collection<? extends GrantedAuthority> authorities
 ) {
-    public static AuthUser of(Long userId, String email, UserRole role) {
+    public static AuthUser of(Long userId, UserRole role) {
         return new AuthUser(
                 userId,
-                email,
                 List.of(new SimpleGrantedAuthority(role.getRoleName()))
         );
     }
