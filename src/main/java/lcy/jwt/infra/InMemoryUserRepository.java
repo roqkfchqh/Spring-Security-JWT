@@ -3,7 +3,6 @@ package lcy.jwt.infra;
 import lcy.jwt.domain.User;
 import lcy.jwt.domain.UserRepository;
 import org.springframework.stereotype.Repository;
-
 import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
@@ -30,7 +29,7 @@ public class InMemoryUserRepository implements UserRepository {
     }
 
     @Override
-    public Optional<User> findById(Long id) {
-        return Optional.ofNullable(storeById.get(id));
+    public Optional<User> findByUsername(String username) {
+        return Optional.ofNullable(storeByName.get(username));
     }
 }

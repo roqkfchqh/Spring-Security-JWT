@@ -4,6 +4,8 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lcy.jwt.application.AuthService;
+import lcy.jwt.dto.LoginUserRequest;
+import lcy.jwt.dto.LoginUserResponse;
 import lcy.jwt.dto.RegisterUserRequest;
 import lcy.jwt.dto.RegisterUserResponse;
 import lombok.RequiredArgsConstructor;
@@ -29,5 +31,15 @@ public class AuthController {
             @RequestBody @Valid RegisterUserRequest request
     ) {
         return ResponseEntity.ok(authService.register(request));
+    }
+
+    @Operation(
+            summary = "USER 로그인"
+    )
+    @PostMapping("/login")
+    public ResponseEntity<LoginUserResponse> login(
+            @RequestBody @Valid LoginUserRequest request
+    ) {
+        return ResponseEntity.ok(authService.login(request));
     }
 }
