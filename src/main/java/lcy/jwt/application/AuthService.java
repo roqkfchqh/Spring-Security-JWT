@@ -6,7 +6,7 @@ import lcy.jwt.domain.UserRole;
 import lcy.jwt.dto.LoginUserRequest;
 import lcy.jwt.dto.LoginUserResponse;
 import lcy.jwt.dto.RegisterUserRequest;
-import lcy.jwt.dto.RegisterUserResponse;
+import lcy.jwt.dto.UserResponse;
 import lcy.jwt.security.JwtUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -19,7 +19,7 @@ public class AuthService {
     private final JwtUtil jwtUtil;
     private final PasswordEncoder encoder;
 
-    public RegisterUserResponse register(RegisterUserRequest request) {
+    public UserResponse register(RegisterUserRequest request) {
         if (userRepository.existsByUsername(request.username())){
             throw new IllegalArgumentException("이미 사용중인 username 입니다.");
         }
@@ -30,7 +30,7 @@ public class AuthService {
                 UserRole.USER
         );
         userRepository.save(user);
-        return RegisterUserResponse.of(user.getId(), request);
+        return UserResponse.of(user);
     }
 
     public LoginUserResponse login(LoginUserRequest request) {

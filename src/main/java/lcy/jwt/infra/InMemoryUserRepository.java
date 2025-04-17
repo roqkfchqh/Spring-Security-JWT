@@ -32,4 +32,9 @@ public class InMemoryUserRepository implements UserRepository {
     public Optional<User> findByUsername(String username) {
         return Optional.ofNullable(storeByName.get(username));
     }
+
+    @Override
+    public Optional<User> findByUserId(Long userId) {
+        return Optional.ofNullable(storeById.get(userId));
+    }
 }

@@ -7,7 +7,7 @@ import lcy.jwt.application.AuthService;
 import lcy.jwt.dto.LoginUserRequest;
 import lcy.jwt.dto.LoginUserResponse;
 import lcy.jwt.dto.RegisterUserRequest;
-import lcy.jwt.dto.RegisterUserResponse;
+import lcy.jwt.dto.UserResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -27,7 +27,7 @@ public class AuthController {
             description = "username 중복 비허용, size 1-10<br/>nickname 중복 허용, size 1-10<br/>password size 8-20"
     )
     @PostMapping("/register")
-    public ResponseEntity<RegisterUserResponse> register(
+    public ResponseEntity<UserResponse> register(
             @RequestBody @Valid RegisterUserRequest request
     ) {
         return ResponseEntity.ok(authService.register(request));
