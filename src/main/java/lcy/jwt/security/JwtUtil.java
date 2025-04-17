@@ -10,7 +10,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
-import support.JwtProperties;
+import lcy.jwt.utils.JwtProperties;
 
 import java.security.Key;
 import java.util.Base64;
@@ -50,7 +50,6 @@ public class JwtUtil {
                     .setIssuedAt(now)
                     .signWith(key, signatureAlgorithm)
                     .compact();
-
     }
 
     public String substringToken(String token) {

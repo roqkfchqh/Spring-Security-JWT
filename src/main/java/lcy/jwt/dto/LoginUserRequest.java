@@ -1,7 +1,9 @@
 package lcy.jwt.dto;
 
+import jakarta.validation.constraints.NotBlank;
+
 public record LoginUserRequest(
-        String username,
-        String password
+        @NotBlank String username,
+        @NotBlank String password
 ) {
 }

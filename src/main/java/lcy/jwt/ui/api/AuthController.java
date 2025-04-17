@@ -4,10 +4,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lcy.jwt.application.AuthService;
-import lcy.jwt.dto.LoginUserRequest;
-import lcy.jwt.dto.LoginUserResponse;
-import lcy.jwt.dto.RegisterUserRequest;
-import lcy.jwt.dto.UserResponse;
+import lcy.jwt.dto.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,6 +18,17 @@ import org.springframework.web.bind.annotation.RestController;
 @Tag(name = "Auth", description = "인증/인가 관련 API")
 public class AuthController {
     private final AuthService authService;
+
+    @Operation(
+            summary = "ADMIN 회원 가입",
+            description = "Admin 전용 secret code 입력 필수"
+    )
+    @PostMapping("/register/admin")
+    public ResponseEntity<UserResponse> register(
+            @RequestBody @Valid RegisterAdminRequest request
+    ) {
+        return ResponseEntity.ok(authService.register(request));
+    }
 
     @Operation(
             summary = "USER 회원가입",

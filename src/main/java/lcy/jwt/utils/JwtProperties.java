@@ -1,4 +1,4 @@
-package support;
+package lcy.jwt.utils;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
