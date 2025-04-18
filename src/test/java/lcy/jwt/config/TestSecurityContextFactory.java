@@ -7,7 +7,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.test.context.support.WithSecurityContextFactory;
 
 public class TestSecurityContextFactory implements WithSecurityContextFactory<MockAuthUser> {
-
     @Override
     public SecurityContext createSecurityContext(MockAuthUser mockAuthUser) {
         SecurityContext context = SecurityContextHolder.createEmptyContext();

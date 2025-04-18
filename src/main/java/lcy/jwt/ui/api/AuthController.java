@@ -27,7 +27,7 @@ public class AuthController {
     public ResponseEntity<UserResponse> register(
             @RequestBody @Valid RegisterAdminRequest request
     ) {
-        return ResponseEntity.ok(authService.register(request));
+        return ResponseEntity.ok(authService.registerAdmin(request));
     }
 
     @Operation(
@@ -38,7 +38,7 @@ public class AuthController {
     public ResponseEntity<UserResponse> register(
             @RequestBody @Valid RegisterUserRequest request
     ) {
-        return ResponseEntity.ok(authService.register(request));
+        return ResponseEntity.ok(authService.registerUser(request));
     }
 
     @Operation(

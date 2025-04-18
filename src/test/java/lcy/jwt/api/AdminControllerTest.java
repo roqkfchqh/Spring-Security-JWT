@@ -35,10 +35,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
         CustomAccessDeniedHandler.class,
 })
 class AdminControllerTest {
-
     @Autowired
     MockMvc mockMvc;
-
     @Autowired
     AdminService adminService;
 

@@ -18,7 +18,7 @@ public class AuthService {
     private final JwtUtil jwtUtil;
     private final SecretCode secretCode;
 
-    public UserResponse register(RegisterAdminRequest request) {
+    public UserResponse registerAdmin(RegisterAdminRequest request) {
         if (!request.secretCode().equals(secretCode.code())) {
             throw new IllegalArgumentException("관리자 code 가 잘못되었습니다.");
         }
@@ -35,7 +35,7 @@ public class AuthService {
         return UserResponse.of(user);
     }
 
-    public UserResponse register(RegisterUserRequest request) {
+    public UserResponse registerUser(RegisterUserRequest request) {
         if (userRepository.existsByUsername(request.username())) {
             throw new IllegalArgumentException("이미 사용중인 username 입니다.");
         }
