@@ -1,4 +1,4 @@
-package lcy.jwt.dto;
+package lcy.jwt.security;
 
 import lcy.jwt.domain.UserRole;
 import org.springframework.security.core.GrantedAuthority;

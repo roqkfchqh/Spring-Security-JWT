@@ -1,6 +1,6 @@
 package lcy.jwt.config;
 
-import lcy.jwt.dto.AuthUser;
+import lcy.jwt.security.AuthUser;
 import lcy.jwt.security.JwtAuthenticationToken;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;

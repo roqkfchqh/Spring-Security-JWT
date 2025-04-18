@@ -1,6 +1,5 @@
 package lcy.jwt.security;
 
-import lcy.jwt.dto.AuthUser;
 import org.springframework.security.authentication.AbstractAuthenticationToken;
 
 public class JwtAuthenticationToken extends AbstractAuthenticationToken {

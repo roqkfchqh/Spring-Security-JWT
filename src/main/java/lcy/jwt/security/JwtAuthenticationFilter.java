@@ -7,7 +7,6 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lcy.jwt.domain.UserRole;
-import lcy.jwt.dto.AuthUser;
 import lcy.jwt.exception.ErrorResponseHandler;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
