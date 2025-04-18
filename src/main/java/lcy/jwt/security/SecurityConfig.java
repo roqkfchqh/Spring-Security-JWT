@@ -2,6 +2,7 @@ package lcy.jwt.security;
 
 import lcy.jwt.domain.UserRole;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
@@ -18,6 +19,7 @@ import org.springframework.security.web.header.writers.XXssProtectionHeaderWrite
 import org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter;
 import lcy.jwt.utils.JwtProperties;
 
+@Slf4j
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
@@ -25,6 +27,8 @@ import lcy.jwt.utils.JwtProperties;
 public class SecurityConfig {
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
     private final JwtProperties jwtProperties;
+    private final CustomAccessDeniedHandler customAccessDeniedHandler;
+    private final CustomAuthEntryPoint customAuthEntryPoint;
 
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -53,7 +57,11 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(jwtProperties.secret().whiteList().toArray(new String[0])).permitAll()
                         .requestMatchers(jwtProperties.secret().adminList().toArray(new String[0])).hasAuthority(UserRole.Authority.ADMIN)
-                        .anyRequest().authenticated()
+                        .anyRequest().hasAnyAuthority(UserRole.Authority.ADMIN, UserRole.Authority.USER)
+                )
+                .exceptionHandling(exceptions -> exceptions
+                        .authenticationEntryPoint(customAuthEntryPoint)
+                        .accessDeniedHandler(customAccessDeniedHandler)
                 )
                 .build();
     }

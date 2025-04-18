@@ -21,7 +21,7 @@ public class AuthController {
 
     @Operation(
             summary = "ADMIN 회원 가입",
-            description = "Admin 전용 secret code 입력 필수"
+            description = "Admin 전용 secret code 입력 필수<br/>현재 Secret Code: 1234"
     )
     @PostMapping("/register/admin")
     public ResponseEntity<UserResponse> register(

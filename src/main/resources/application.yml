@@ -19,5 +19,8 @@ jwt:
     adminlist:
       - "/api/admin/**"
   token:
-    prefix: "Bearer "
+    prefix: "Bearer"
     expiration: 1800000
+
+springdoc:
+  override-with-generic-response: false

@@ -12,7 +12,8 @@ public record SecretCode(
         String code
 ) {
     public SecretCode() {
-        this(UUID.randomUUID().toString());
+        this("1234");
+        //this(UUID.randomUUID().toString());
     }
 
     @PostConstruct
