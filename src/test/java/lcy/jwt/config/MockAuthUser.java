@@ -10,5 +10,6 @@ import java.lang.annotation.RetentionPolicy;
 @WithSecurityContext(factory = TestSecurityContextFactory.class)
 public @interface MockAuthUser {
     long userId();
+
     UserRole role();
 }
