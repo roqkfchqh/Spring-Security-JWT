@@ -18,8 +18,8 @@ public class SwaggerConfig {
                 .version("v1.0")
                 .description("API 명세서")
                 .contact(new Contact()
-                    .name("이채영")
-                    .url("https://github.com/roqkfchqh/Spring-Security-JWT"));
+                        .name("이채영")
+                        .url("https://github.com/roqkfchqh/Spring-Security-JWT"));
 
         SecurityScheme securityScheme = new SecurityScheme()
                 .type(SecurityScheme.Type.HTTP)

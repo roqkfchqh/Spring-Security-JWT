@@ -45,11 +45,11 @@ public class JwtUtil {
         String payload = userId + ":" + role;
         return jwtProperties.token().prefix() +
                 Jwts.builder()
-                    .setSubject(payload)
-                    .setExpiration(new Date(now.getTime() + jwtProperties.token().expiration()))
-                    .setIssuedAt(now)
-                    .signWith(key, signatureAlgorithm)
-                    .compact();
+                        .setSubject(payload)
+                        .setExpiration(new Date(now.getTime() + jwtProperties.token().expiration()))
+                        .setIssuedAt(now)
+                        .signWith(key, signatureAlgorithm)
+                        .compact();
     }
 
     public String substringToken(String token) {

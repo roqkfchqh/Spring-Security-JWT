@@ -13,10 +13,12 @@ public record JwtProperties(
             String key,
             List<String> whiteList,
             List<String> adminList
-    ) {}
+    ) {
+    }
 
     public record Token(
             String prefix,
             long expiration
-    ) {}
+    ) {
+    }
 }
