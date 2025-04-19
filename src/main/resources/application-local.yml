@@ -1,6 +1,2 @@
 server:
   port: 9999
-
-logging:
-  level:
-    tracer: TRACE
