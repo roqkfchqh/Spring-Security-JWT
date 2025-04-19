@@ -7,7 +7,7 @@ spring:
 
 jwt:
   secret:
-    key: ${JWT_KEY}
+    key: YjlmODZjOWVlYzlhNGE5MGI3NmE2M2E1ZmJkZGU3ZTFjODNmNmQyOTlkZmU0ZTc0OGU0NWNkOTFjYmZkNzQyNw==
     whitelist:
       - "/v3/api-docs/**"
       - "/swagger-ui/**"

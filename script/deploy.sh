@@ -84,15 +84,15 @@ chown ubuntu:ubuntu ${APP_DIR}
 
 # --- 소스 클론 & 빌드 ---
 sudo -u ubuntu bash -lc "
-  git clone https://github.com/roqkfchqh/Spring-Security-JWT /home/ubuntu/app/ &&
-  cd /home/ubuntu/app/ &&
+  git clone ${REPO_URL} ${APP_DIR} &&
+  cd ${APP_DIR} &&
   gradle build -x test
 "
 
 # --- 백그라운드 실행 ---
 JAR_FILE="${APP_DIR}/build/libs/jwt-0.0.1-SNAPSHOT.jar"
 if [ -f "\$JAR_FILE" ]; then
-  sudo -u ubuntu bash -lc "nohup java -DJWT_KEY=jwt -jar \$JAR_FILE &"
+  sudo -u ubuntu bash -lc "nohup java -DJWT_KEY=YjlmODZjOWVlYzlhNGE5MGI3NmE2M2E1ZmJkZGU3ZTFjODNmNmQyOTlkZmU0ZTc0OGU0NWNkOTFjYmZkNzQyNw== -jar \$JAR_FILE &"
 else
   echo "JAR 파일이 존재하지 않습니다: \$JAR_FILE" >> /var/log/user-data.log
   exit 1
