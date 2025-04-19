@@ -5,6 +5,8 @@ import lcy.jwt.domain.UserRepository;
 import lcy.jwt.domain.UserRole;
 import lcy.jwt.dto.*;
 import lcy.jwt.security.JwtUtil;
+import lcy.jwt.utils.JwtProperties;
+import lcy.jwt.utils.JwtTokenUtils;
 import lcy.jwt.utils.SecretCode;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -16,6 +18,7 @@ public class AuthService {
     private final UserRepository userRepository;
     private final PasswordEncoder encoder;
     private final JwtUtil jwtUtil;
+    private final JwtProperties jwtProperties;
     private final SecretCode secretCode;
 
     public UserResponse registerAdmin(RegisterAdminRequest request) {
@@ -56,6 +59,7 @@ public class AuthService {
             throw new IllegalArgumentException("패스워드가 일치하지 않습니다.");
         }
         String token = jwtUtil.createToken(user.getId(), user.getRole());
-        return LoginUserResponse.of(token);
+        String rawToken = JwtTokenUtils.removePrefix(token, jwtProperties.token().prefix());
+        return LoginUserResponse.of(rawToken);
     }
 }

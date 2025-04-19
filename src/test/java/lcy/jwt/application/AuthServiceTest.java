@@ -11,6 +11,7 @@ import lcy.jwt.dto.UserResponse;
 import lcy.jwt.mocks.MockRequestFactory;
 import lcy.jwt.mocks.MockUserFactory;
 import lcy.jwt.security.JwtUtil;
+import lcy.jwt.utils.JwtProperties;
 import lcy.jwt.utils.SecretCode;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -36,6 +37,8 @@ class AuthServiceTest {
     private JwtUtil jwtUtil;
     @Mock
     private SecretCode secretCode;
+    @Mock
+    private JwtProperties jwtProperties;
 
     @InjectMocks
     private AuthService authService;
@@ -101,6 +104,7 @@ class AuthServiceTest {
         given(userRepository.findByUsername(req.username())).willReturn(Optional.of(user));
         given(encoder.matches(req.password(), user.getPassword())).willReturn(true);
         given(jwtUtil.createToken(5L, UserRole.USER)).willReturn("jwt-token");
+        given(jwtProperties.token()).willReturn(new JwtProperties.Token("prefix", 3600L));
 
         LoginUserResponse res = authService.login(req);
 

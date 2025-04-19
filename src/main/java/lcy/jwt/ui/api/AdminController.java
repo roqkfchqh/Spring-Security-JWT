@@ -34,7 +34,7 @@ public class AdminController {
             @ApiResponse(responseCode = "200", description = "권한 부여 성공",
                     content = @Content(schema = @Schema(implementation = UserResponse.class))
             ),
-            @ApiResponse(responseCode = "400", description = "잘못된 요청(이미 ADMIN, 해당 user 존재하지 않음",
+            @ApiResponse(responseCode = "400", description = "잘못된 요청(이미 ADMIN, 해당 user 존재하지 않음)",
                     content = @Content(schema = @Schema(implementation = ErrorResponse.class))
             ),
     })
