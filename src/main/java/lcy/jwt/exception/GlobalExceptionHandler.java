@@ -26,13 +26,22 @@ import org.springframework.web.servlet.NoHandlerFoundException;
 public class GlobalExceptionHandler {
     private final ErrorResponseHandler errorResponseHandler;
 
+    // 비즈니스 에러
+    @ExceptionHandler(BaseException.class)
+    public void handleBaseException(
+            HttpServletResponse response,
+            BaseException e
+    ) throws IOException {
+        errorResponseHandler.send(response, e.getStatus(), e.getCode(), e.getMessage());
+    }
+
     // 잘못된 Http Method 처리
     @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
     public void handleMethodNotSupported(
             HttpServletResponse response
     ) throws IOException {
         String errorMessage = "요청한 HTTP 메서드는 지원되지 않습니다.";
-        errorResponseHandler.send(response, HttpStatus.METHOD_NOT_ALLOWED, errorMessage);
+        errorResponseHandler.send(response, HttpStatus.METHOD_NOT_ALLOWED, "ge405", errorMessage);
     }
 
     // 잘못된 엔드포인트 요청 처리 (404)
@@ -42,7 +51,7 @@ public class GlobalExceptionHandler {
             HttpServletRequest request
     ) throws IOException {
         String errorMessage = "요청한 리소스를 찾을 수 없습니다: " + request.getRequestURI();
-        errorResponseHandler.send(response, HttpStatus.NOT_FOUND, errorMessage);
+        errorResponseHandler.send(response, HttpStatus.NOT_FOUND, "ge404", errorMessage);
     }
 
     // 파라미터 존재하지 않을 때 발생
@@ -52,7 +61,7 @@ public class GlobalExceptionHandler {
             MissingServletRequestParameterException e
     ) throws IOException {
         String errorMessage = e.getParameterName() + " 값이 누락되었습니다.";
-        errorResponseHandler.send(response, HttpStatus.BAD_REQUEST, errorMessage);
+        errorResponseHandler.send(response, HttpStatus.BAD_REQUEST, "ge400", errorMessage);
     }
 
     // 잘못된 인자 값이 전달될 때 발생
@@ -62,7 +71,7 @@ public class GlobalExceptionHandler {
             IllegalArgumentException e
     ) throws IOException {
         String errorMessage = "잘못된 입력 값: " + e.getMessage();
-        errorResponseHandler.send(response, HttpStatus.BAD_REQUEST, errorMessage);
+        errorResponseHandler.send(response, HttpStatus.BAD_REQUEST, "ge400", errorMessage);
     }
 
     // 파라미터 타입과 일치하지 않을 때 발생
@@ -73,7 +82,7 @@ public class GlobalExceptionHandler {
     ) throws IOException {
         String errorMessage = String.format("파라미터 타입 불일치: %s (기대된 타입: %s, 실제 값: %s)", e.getName(),
                 Objects.requireNonNull(e.getRequiredType()).getSimpleName(), e.getValue());
-        errorResponseHandler.send(response, HttpStatus.BAD_REQUEST, errorMessage);
+        errorResponseHandler.send(response, HttpStatus.BAD_REQUEST, "ge400", errorMessage);
     }
 
     // HTTP 요청의 본문을 읽을 수 없을 때 발생
@@ -82,7 +91,7 @@ public class GlobalExceptionHandler {
             HttpServletResponse response,
             HttpMessageNotReadableException e
     ) throws IOException {
-        errorResponseHandler.send(response, HttpStatus.BAD_REQUEST, e.getMessage());
+        errorResponseHandler.send(response, HttpStatus.BAD_REQUEST, "ge400", e.getMessage());
     }
 
     // @Valid 에러
@@ -102,7 +111,7 @@ public class GlobalExceptionHandler {
                 .collect(Collectors.joining(","));
 
         String errorMessage = globalErrorMessage + fieldErrorMessage;
-        errorResponseHandler.send(response, HttpStatus.BAD_REQUEST, errorMessage);
+        errorResponseHandler.send(response, HttpStatus.BAD_REQUEST, "ge400", errorMessage);
     }
 
     // 500 서버에러
@@ -113,6 +122,6 @@ public class GlobalExceptionHandler {
             Exception e
     ) throws IOException {
         log.error("예상하지 못한 예외가 발생했습니다. URI:{}, 내용:{}", request.getRequestURI(), e.getMessage(), e);
-        errorResponseHandler.send(response, HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
+        errorResponseHandler.send(response, HttpStatus.INTERNAL_SERVER_ERROR, "ge500", e.getMessage());
     }
 }

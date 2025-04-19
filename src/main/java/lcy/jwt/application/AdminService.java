@@ -4,6 +4,8 @@ import lcy.jwt.domain.User;
 import lcy.jwt.domain.UserRepository;
 import lcy.jwt.domain.UserRole;
 import lcy.jwt.dto.UserResponse;
+import lcy.jwt.exception.CustomException;
+import lcy.jwt.exception.ErrorCode;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -14,9 +16,9 @@ public class AdminService {
 
     public UserResponse assignAdminRole(Long userId) {
         User user = userRepository.findByUserId(userId)
-                .orElseThrow(() -> new IllegalArgumentException("해당 유저가 존재하지 않습니다."));
+                .orElseThrow(() -> new CustomException(ErrorCode.USER_NOT_FOUND));
         if (user.getRole().equals(UserRole.ADMIN)) {
-            throw new IllegalArgumentException("해당 유저는 이미 관리자입니다.");
+            throw new CustomException(ErrorCode.ALREADY_ADMIN);
         }
         user.setRole(UserRole.ADMIN);
         userRepository.save(user);

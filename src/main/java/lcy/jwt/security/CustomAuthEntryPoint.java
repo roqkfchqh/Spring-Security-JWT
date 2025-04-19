@@ -25,6 +25,7 @@ public class CustomAuthEntryPoint implements AuthenticationEntryPoint {
         errorResponseHandler.send(
                 response,
                 HttpStatus.UNAUTHORIZED,
+                "se401",
                 "로그인이 필요합니다."
         );
     }

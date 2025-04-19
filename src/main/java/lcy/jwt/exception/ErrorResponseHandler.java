@@ -14,8 +14,8 @@ import java.io.IOException;
 public class ErrorResponseHandler {
     private final ObjectMapper objectMapper = new ObjectMapper();
 
-    public void send(HttpServletResponse response, HttpStatus status, String message) throws IOException {
-        send(response, ErrorResponse.of(status, message));
+    public void send(HttpServletResponse response, HttpStatus status, String code, String message) throws IOException {
+        send(response, ErrorResponse.of(status, code, message));
     }
 
     private void send(HttpServletResponse response, ErrorResponse error) throws IOException {

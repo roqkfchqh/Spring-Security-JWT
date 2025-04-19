@@ -8,6 +8,7 @@ import lcy.jwt.dto.RegisterAdminRequest;
 import lcy.jwt.dto.RegisterUserRequest;
 import lcy.jwt.dto.LoginUserRequest;
 import lcy.jwt.dto.UserResponse;
+import lcy.jwt.exception.CustomException;
 import lcy.jwt.mocks.MockRequestFactory;
 import lcy.jwt.mocks.MockUserFactory;
 import lcy.jwt.security.JwtUtil;
@@ -60,9 +61,9 @@ class AuthServiceTest {
         given(secretCode.code()).willReturn("wrong");
         RegisterAdminRequest req = MockRequestFactory.registerAdmin();
 
-        IllegalArgumentException ex = assertThrows(IllegalArgumentException.class,
+        CustomException ex = assertThrows(CustomException.class,
                 () -> authService.registerAdmin(req));
-        assertThrows(IllegalArgumentException.class, () -> authService.registerAdmin(req));
+        assertEquals("ad403", ex.getCode());
     }
 
     @Test
@@ -71,9 +72,9 @@ class AuthServiceTest {
         RegisterAdminRequest req = MockRequestFactory.registerAdmin();
         given(secretCode.code()).willReturn("1234");
 
-        IllegalArgumentException ex = assertThrows(IllegalArgumentException.class,
+        CustomException ex = assertThrows(CustomException.class,
                 () -> authService.registerAdmin(req));
-        assertThrows(IllegalArgumentException.class, () -> authService.registerAdmin(req));
+        assertEquals("au400", ex.getCode());
     }
 
     @Test
@@ -92,9 +93,9 @@ class AuthServiceTest {
         given(userRepository.existsByUsername("testuser")).willReturn(true);
         RegisterUserRequest req = MockRequestFactory.registerUser();
 
-        IllegalArgumentException ex = assertThrows(IllegalArgumentException.class,
+        CustomException ex = assertThrows(CustomException.class,
                 () -> authService.registerUser(req));
-        assertThrows(IllegalArgumentException.class, () -> authService.registerUser(req));
+        assertEquals("au400", ex.getCode());
     }
 
     @Test
@@ -116,9 +117,9 @@ class AuthServiceTest {
         given(userRepository.findByUsername("testuser")).willReturn(Optional.empty());
         LoginUserRequest req = MockRequestFactory.loginUser();
 
-        IllegalArgumentException ex = assertThrows(IllegalArgumentException.class,
+        CustomException ex = assertThrows(CustomException.class,
                 () -> authService.login(req));
-        assertThrows(IllegalArgumentException.class, () -> authService.login(req));
+        assertEquals("us404", ex.getCode());
     }
 
     @Test
@@ -128,8 +129,8 @@ class AuthServiceTest {
         given(encoder.matches("password123", user.getPassword())).willReturn(false);
         LoginUserRequest req = MockRequestFactory.loginUser();
 
-        IllegalArgumentException ex = assertThrows(IllegalArgumentException.class,
+        CustomException ex = assertThrows(CustomException.class,
                 () -> authService.login(req));
-        assertThrows(IllegalArgumentException.class, () -> authService.login(req));
+        assertEquals("au401", ex.getCode());
     }
 }

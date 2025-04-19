@@ -26,12 +26,14 @@ public class AuthController {
 
     @Operation(summary = "ADMIN 회원가입", description = "Secret code 입력 필수 (현재 1234)")
     @ApiResponses({
-            @ApiResponse(responseCode = "200", description = "가입 성공",
-                    content = @Content(schema = @Schema(implementation = UserResponse.class))
+            @ApiResponse(responseCode = "200", description = "가입 성공"
             ),
-            @ApiResponse(responseCode = "400", description = "잘못된 요청(유효성 실패, 중복 username)",
+            @ApiResponse(responseCode = "400", description = "유효성 검사 실패: ge400, 중복 username: au400",
                     content = @Content(schema = @Schema(implementation = ErrorResponse.class))
-            )
+            ),
+            @ApiResponse(responseCode = "403", description = "관리자 code 입력오류: ad403",
+                    content = @Content(schema = @Schema(implementation = ErrorResponse.class))
+            ),
     })
     @PostMapping("/register/admin")
     public ResponseEntity<UserResponse> register(
@@ -45,9 +47,9 @@ public class AuthController {
             @ApiResponse(responseCode = "200", description = "가입 성공",
                     content = @Content(schema = @Schema(implementation = UserResponse.class))
             ),
-            @ApiResponse(responseCode = "400", description = "잘못된 요청(유효성 실패)",
+            @ApiResponse(responseCode = "400", description = "유효성 검사 실패: ge400, 중복 username: au400",
                     content = @Content(schema = @Schema(implementation = ErrorResponse.class))
-            )
+            ),
     })
     @PostMapping("/register")
     public ResponseEntity<UserResponse> register(
@@ -56,14 +58,17 @@ public class AuthController {
         return ResponseEntity.ok(authService.registerUser(request));
     }
 
-    @Operation(summary = "USER 로그인", description = "아이디·비밀번호로 로그인하여 JWT 토큰 반환")
+    @Operation(summary = "로그인", description = "아이디·비밀번호로 로그인하여 JWT 토큰 반환")
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "로그인 성공",
                     content = @Content(schema = @Schema(implementation = LoginUserResponse.class))
             ),
-            @ApiResponse(responseCode = "400", description = "인증 실패",
+            @ApiResponse(responseCode = "401", description = "패스워드 오류: au401",
                     content = @Content(schema = @Schema(implementation = ErrorResponse.class))
-            )
+            ),
+            @ApiResponse(responseCode = "404", description = "해당 User 가 존재하지 않는 경우: us404",
+                    content = @Content(schema = @Schema(implementation = ErrorResponse.class))
+            ),
     })
     @PostMapping("/login")
     public ResponseEntity<LoginUserResponse> login(

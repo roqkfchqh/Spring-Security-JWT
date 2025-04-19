@@ -20,7 +20,10 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/admin")
 @Secured(UserRole.Authority.ADMIN)
 @Tag(name = "Admin", description = "관리자 관련 API")
-@ApiResponse(responseCode = "403", description = "권한 없음",
+@ApiResponse(responseCode = "401", description = "로그인 필요: se401",
+        content = @Content(schema = @Schema(implementation = ErrorResponse.class))
+)
+@ApiResponse(responseCode = "403", description = "ADMIN 권한 없음: se403",
         content = @Content(schema = @Schema(implementation = ErrorResponse.class))
 )
 public class AdminController {
@@ -34,7 +37,10 @@ public class AdminController {
             @ApiResponse(responseCode = "200", description = "권한 부여 성공",
                     content = @Content(schema = @Schema(implementation = UserResponse.class))
             ),
-            @ApiResponse(responseCode = "400", description = "잘못된 요청(이미 ADMIN, 해당 user 존재하지 않음)",
+            @ApiResponse(responseCode = "400", description = "이미 ADMIN 인 경우: ad400",
+                    content = @Content(schema = @Schema(implementation = ErrorResponse.class))
+            ),
+            @ApiResponse(responseCode = "404", description = "해당 User 가 존재하지 않는 경우: us404",
                     content = @Content(schema = @Schema(implementation = ErrorResponse.class))
             ),
     })

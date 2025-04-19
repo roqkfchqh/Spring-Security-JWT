@@ -4,6 +4,8 @@ import lcy.jwt.domain.User;
 import lcy.jwt.domain.UserRepository;
 import lcy.jwt.domain.UserRole;
 import lcy.jwt.dto.*;
+import lcy.jwt.exception.CustomException;
+import lcy.jwt.exception.ErrorCode;
 import lcy.jwt.security.JwtUtil;
 import lcy.jwt.utils.JwtProperties;
 import lcy.jwt.utils.JwtTokenUtils;
@@ -23,10 +25,10 @@ public class AuthService {
 
     public UserResponse registerAdmin(RegisterAdminRequest request) {
         if (!request.secretCode().equals(secretCode.code())) {
-            throw new IllegalArgumentException("관리자 code 가 잘못되었습니다.");
+            throw new CustomException(ErrorCode.ADMIN_CODE_FORBIDDEN);
         }
         if (userRepository.existsByUsername(request.username())) {
-            throw new IllegalArgumentException("이미 사용중인 username 입니다.");
+            throw new CustomException(ErrorCode.USERNAME_ALREADY_USED);
         }
         User user = User.of(
                 request.username(),
@@ -40,7 +42,7 @@ public class AuthService {
 
     public UserResponse registerUser(RegisterUserRequest request) {
         if (userRepository.existsByUsername(request.username())) {
-            throw new IllegalArgumentException("이미 사용중인 username 입니다.");
+            throw new CustomException(ErrorCode.USERNAME_ALREADY_USED);
         }
         User user = User.of(
                 request.username(),
@@ -54,9 +56,9 @@ public class AuthService {
 
     public LoginUserResponse login(LoginUserRequest request) {
         User user = userRepository.findByUsername(request.username())
-                .orElseThrow(() -> new IllegalArgumentException("해당 유저가 존재하지 않습니다."));
+                .orElseThrow(() -> new CustomException(ErrorCode.USER_NOT_FOUND));
         if (!encoder.matches(request.password(), user.getPassword())) {
-            throw new IllegalArgumentException("패스워드가 일치하지 않습니다.");
+            throw new CustomException(ErrorCode.WRONG_PASSWORD);
         }
         String token = jwtUtil.createToken(user.getId(), user.getRole());
         String rawToken = JwtTokenUtils.removePrefix(token, jwtProperties.token().prefix());

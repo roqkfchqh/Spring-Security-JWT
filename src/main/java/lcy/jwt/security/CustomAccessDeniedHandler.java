@@ -25,6 +25,7 @@ public class CustomAccessDeniedHandler implements AccessDeniedHandler {
         errorResponseHandler.send(
                 response,
                 HttpStatus.FORBIDDEN,
+                "se403",
                 "접근 권한이 없습니다."
         );
     }

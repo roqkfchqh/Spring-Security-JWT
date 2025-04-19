@@ -47,25 +47,25 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                     setAuthentication(claims);
                 }
             } catch (ExpiredJwtException e) {
-                errorResponseHandler.send(response, HttpStatus.UNAUTHORIZED, "만료된 JWT 토큰입니다.");
+                errorResponseHandler.send(response, HttpStatus.UNAUTHORIZED, "jt401", "만료된 JWT 토큰입니다.");
                 return;
             } catch (SignatureException e) {
-                errorResponseHandler.send(response, HttpStatus.UNAUTHORIZED, "유효하지 않은 JWT 서명입니다.");
+                errorResponseHandler.send(response, HttpStatus.UNAUTHORIZED, "jt401","유효하지 않은 JWT 서명입니다.");
                 return;
             } catch (SecurityException | MalformedJwtException e) {
-                errorResponseHandler.send(response, HttpStatus.UNAUTHORIZED, "잘못된 JWT 토큰 형식입니다.");
+                errorResponseHandler.send(response, HttpStatus.UNAUTHORIZED, "jt401","잘못된 JWT 토큰 형식입니다.");
                 return;
             } catch (UnsupportedJwtException e) {
-                errorResponseHandler.send(response, HttpStatus.BAD_REQUEST, "지원되지 않는 JWT 토큰입니다.");
+                errorResponseHandler.send(response, HttpStatus.BAD_REQUEST, "jt400","지원되지 않는 JWT 토큰입니다.");
                 return;
             } catch (IllegalArgumentException e) {
-                errorResponseHandler.send(response, HttpStatus.BAD_REQUEST, e.getMessage());
+                errorResponseHandler.send(response, HttpStatus.BAD_REQUEST, "jt400", e.getMessage());
                 return;
             } catch (JwtException e) {
-                errorResponseHandler.send(response, HttpStatus.UNAUTHORIZED, "예상치 못한 JWT 토큰 오류: " + e.getMessage());
+                errorResponseHandler.send(response, HttpStatus.UNAUTHORIZED, "jt401", "예상치 못한 JWT 토큰 오류: " + e.getMessage());
                 return;
             } catch (Exception e) {
-                errorResponseHandler.send(response, HttpStatus.INTERNAL_SERVER_ERROR, "예상치 못한 서버 오류: " + e.getMessage());
+                errorResponseHandler.send(response, HttpStatus.INTERNAL_SERVER_ERROR, "jt500", "예상치 못한 서버 오류: " + e.getMessage());
                 return;
             }
         }
