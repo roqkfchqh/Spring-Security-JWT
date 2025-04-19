@@ -1,10 +1,10 @@
-# Spring Security + JWT 백엔드 템플릿
+# 🟧 Spring Security + JWT 백엔드 템플릿
 바로인턴 11기 과제물
 [AWS 배포 Swagger url](http://43.203.255.175:8080/swagger-ui/index.html#/)
 
 ---
 
-## 목차
+## 🟧 목차
 1. [파일 구조](#파일-구조)
 2. [기술 스택](#기술-스택)
 3. [API](#api)
@@ -15,7 +15,7 @@
 8. [Swagger 연동](#swagger-연동)
 
 ---
-## 파일 구조
+## 🟧 파일 구조
 
 ```markdown
 src
@@ -43,7 +43,7 @@ src
 
 ---
 
-## 기술 스택
+## 🟧 기술 스택
 | 분야 | 내용                           |
 |-----|------------------------------|
 | 언어 | Java 17                      |
@@ -57,7 +57,7 @@ src
 
 ---
 
-## API
+## 🟧 API
 
 ### Auth API
 | 메서드 | 경로 | 설명 |
@@ -71,7 +71,7 @@ src
 | PATCH | /api/admin/users/{userId}/roles | 사용자에게 관리자 권한 부여 |
 
 ---
-## 인증 - 인가
+## 🟧 인증 - 인가
 
 - JWT 기반 무상태 Stateless 인증
 - SecurityContextHolder를 통해 현재 사용자 정보 저장 및 전달
@@ -102,7 +102,7 @@ if (header.startsWith("Bearer ")) {
 ---
 
 
-## 로깅 설정 (Logback)
+## 🟧 로깅 설정 (Logback)
 
 ### 환경별 출력 분리
 ```xml
@@ -125,7 +125,7 @@ if (header.startsWith("Bearer ")) {
 
 ---
 
-## 예외 처리 구조
+## 🟧 예외 처리 구조
 
 ### 에러 응답 포맷 (공통)
 ```json
@@ -144,7 +144,7 @@ if (header.startsWith("Bearer ")) {
 
 ---
 
-## EC2 자동 배포 스크립트 (deploy.sh)
+## 🟧 EC2 자동 배포 스크립트 (deploy.sh)
 
 ### 주요 흐름
 1. 보안 그룹 생성 및 포트(8080, 22) 오픈
@@ -159,7 +159,7 @@ EC2(i-xxxxxxxx) 준비 완료 http://ec2-xx-xxx-xxx-xxx.compute.amazonaws.com:80
 
 ---
 
-## Swagger 연동
+## 🟧 Swagger 연동
 - @Operation, @ApiResponses 등으로 문서화
 - JWT 토큰 입력 후 테스트 가능
 - 예외 응답 Swagger 상에서 스키마로 명시
