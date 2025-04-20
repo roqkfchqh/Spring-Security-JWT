@@ -5,6 +5,10 @@ spring:
   config:
     import: optional:file:.env[.properties]
 
+  web:
+    resources:
+      add-mappings: false
+
 jwt:
   secret:
     key: YjlmODZjOWVlYzlhNGE5MGI3NmE2M2E1ZmJkZGU3ZTFjODNmNmQyOTlkZmU0ZTc0OGU0NWNkOTFjYmZkNzQyNw==

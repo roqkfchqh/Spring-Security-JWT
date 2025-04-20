@@ -43,7 +43,7 @@ class AdminControllerTest {
     @Test
     @MockAuthUser(userId = 1L, role = UserRole.ADMIN)
     void 권한이_ADMIN일때_200() throws Exception {
-        long targetUserId = 2L;
+        Long targetUserId = 2L;
         User targetUser = MockUserFactory.createUser(targetUserId);
         given(adminService.assignAdminRole(targetUserId))
                 .willReturn(UserResponse.of(targetUser));
