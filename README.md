@@ -1,6 +1,6 @@
 # 🟧 Spring Security + JWT 백엔드 템플릿
 바로인턴 11기 과제물
-[AWS 배포 Swagger url](http://43.203.255.175:8080/swagger-ui/index.html#/)
+[AWS 배포 Swagger url](http://13.124.225.54:8080/swagger-ui/index.html#/)
 
 ---
 
