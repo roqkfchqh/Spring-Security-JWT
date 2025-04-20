@@ -13,6 +13,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
+import org.springframework.util.AntPathMatcher;
 import org.springframework.web.filter.OncePerRequestFilter;
 import lcy.jwt.utils.JwtProperties;
 
@@ -25,9 +26,13 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     private final JwtUtil jwtUtil;
     private final JwtProperties jwtProperties;
 
+    private final AntPathMatcher antPathMatcher = new AntPathMatcher();
+
     @Override
     protected boolean shouldNotFilter(HttpServletRequest request) {
-        return jwtProperties.secret().whiteList().contains(request.getRequestURI());
+        String uri = request.getRequestURI();
+        return jwtProperties.secret().whiteList().stream()
+                .anyMatch(whitelist -> antPathMatcher.match(whitelist, uri));
     }
 
     @Override
