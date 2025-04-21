@@ -16,7 +16,6 @@ import lcy.jwt.dto.*;
 @RequiredArgsConstructor
 @RequestMapping("/api/auth")
 public class AuthController implements AuthControllerDocs {
-
     private final AuthService authService;
 
     @Override
